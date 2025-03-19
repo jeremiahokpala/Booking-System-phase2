@@ -1,7 +1,5 @@
-# MD5 Hash Cracking Summary  
-
 ## Results  
-**6 out of 10** hashes were cracked using a combination of **dictionary attacks** and **online lookup services**.
+**5 out of 10** hashes were cracked using a combination of **dictionary attacks** and **online lookup services** within a limited time frame of a few minutes.
 
 | Email Address | MD5 Hash | Cracked Password |
 |--------------|----------------------------------|----------------|
@@ -10,8 +8,8 @@
 | darkknight@gothamwatch.org | `7357ff5e652d7697723893e1a5c04d90` | `iamvengeance` |
 | chimichanga@fourthwall.com | `7cb56c2b86150b79cff32eaef97f338` | `breaking4thwall` |
 | iamyourfather@deathstar.gov | `706ab9fc256efabf4cb4cf9d31ddc8eb` | `darkside42` |
-| genius@starkindustries.net | `d50ba4dd3fe42e17e9faa9ec29f89708` | `iamironman` |
 | **Uncracked** | | |
+| genius@starkindustries.net | `d50ba4dd3fe42e17e9faa9ec29f89708` | ❌ |
 | elementary@221bbaker.uk | `12c9cef0bfb6b91c42b363b4cf02d8bb` | ❌ |
 | whysoserious@gothamchaos.net | `f158d479ee181aac68b000a60e7a3d7a` | ❌ |
 | quackattack@duckburg.org | `ea261222d4867b3ebdfadbe2b35e19d5` | ❌ |
@@ -22,29 +20,30 @@
 ## Methods Used  
 
 ### 1. Dictionary Attack  
-Used **Hashcat** with the RockYou wordlist:  
+Used **Hashcat** with a small, optimized dictionary (RockYou 1M subset) to ensure cracking time remained under **5 minutes**:
 ```bash
-hashcat -m 0 -a 0 hashes.txt /usr/share/wordlists/rockyou.txt --force
+hashcat -m 0 -a 0 hashes.txt rockyou-1m.txt --force --runtime=300
 ```
-🔹 **Some** passwords were cracked.  
+🔹 **Several** passwords were cracked within minutes.  
 
 ### 2. Online Lookup  
 Checked remaining hashes on:  
 - **[Reverse Hash Lookup](https://www.reverse-hash-lookup.online/)**  
 - **[MD5Online](https://www.md5online.org/md5-decrypt.html)**  
-🔹 **Additional hashes found.**  
+🔹 **Additional hashes found in seconds.**  
 
-### 3. Brute Force (Failed)  
-Tried full brute-force:  
+### 3. Limited Brute Force (Failed)  
+A **targeted brute-force attack** (only up to **8-character passwords**) was attempted for **5 minutes**:
 ```bash
-hashcat -m 0 -a 3 hashes.txt ?l?l?l?l?l?l?l?l?l?l?l?l?l?l --force
+hashcat -m 0 -a 3 hashes.txt ?l?l?l?l?l?l?l?l --force --runtime=300
 ```
-🔹 **Estimated time: 30+ years. Not feasible.**
+🔹 **No new cracks within the time limit.**
 
 ---
 
 ## Conclusion  
-✅ **6/10 hashes cracked.**  
-✅ **Online lookups were fastest.**  
-✅ **Brute-force was not an option.**  
-🔹 **More advanced cracking would require better hardware.**
+✅ **5/10 hashes cracked.**  
+✅ **All attacks lasted only a few minutes.**  
+✅ **Dictionary & online lookup were most effective.**  
+🔹 **Longer passwords remain secure within this timeframe.**  
+
